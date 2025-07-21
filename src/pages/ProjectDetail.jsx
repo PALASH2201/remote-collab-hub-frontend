@@ -41,9 +41,11 @@ const ProjectDetail = () => {
       taskTitle: task.name,
       taskDesc: task.description,
       taskStatus: "TODO",
-      taskPriority: task.priorityValue,
+      taskPriority: task.priority,
       dueDate: new Date(),
     };
+
+    console.log("Creating task:", newTask);
 
     const addTaskResponse = await addTask(project.projectId, newTask);
     if (addTaskResponse === "Success") {
@@ -152,7 +154,7 @@ const ProjectDetail = () => {
     <div className="min-h-screen bg-gray-50 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link
-          to="/projects"
+          to= {`/teams/projects/${project.teamId}`}
           className="flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6"
         >
           <ArrowLeft className="h-4 w-4 mr-1" /> Back to Projects

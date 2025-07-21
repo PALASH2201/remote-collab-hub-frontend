@@ -54,8 +54,51 @@ export const getUser = async () => {
     }
 }
 
+export const getAllUsers = async () => {
+    try{
+        const response = await axiosInstance.get(`user-service/user/all`,{
+            headers:{
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        toast.error('Failed to fetch users');
+    }
+}
+
 
 // teams
+
+export const addTeamMember = async (teamId, emails) => {
+    try{
+        const response = await axiosInstance.post(`user-service/teams/${teamId}/invite`, emails, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error adding team member:', error);
+        toast.error('Failed to add team member');
+    }
+}
+
+export const addTeam = async (team) => {
+    try{
+        const response = await axiosInstance.post(`user-service/teams/create`, team, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error adding team:', error);
+        toast.error('Failed to add team');
+    }
+}
+
 export const getTeams = async (userId) => {
     try{
         const response = await axiosInstance.get(`user-service/user/${userId}/team`,{
@@ -81,6 +124,20 @@ export const getTeamById = async (teamId) => {
     } catch (error) {
         console.error('Error fetching team:', error);
         toast.error('Failed to fetch team');
+    }
+}
+
+export const acceptTeamInvite = async (token) => {
+    try{
+        const response = await axiosInstance.get(`user-service/teams/invites/accept?token=${token}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error accepting invite:', error);
+        toast.error('Failed to accept invite');
     }
 }
 
@@ -144,7 +201,7 @@ export const updateTask = async (taskId, task) => {
 
 export const assignSprint = async (taskId, sprintId) => {
     try{
-        const response = await axiosInstance.post(`project-service/task/sprint/${sprintId}/task/${taskId}`,{
+        const response = await axiosInstance.post(`project-service/task/sprint/${sprintId}/task/${taskId}`,{},{
             headers:{
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }

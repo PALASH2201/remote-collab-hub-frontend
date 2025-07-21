@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { ArrowLeft , Plus } from "lucide-react";
 import ProjectCard from "@/components/ProjectCard";
 import CreateProjectDialog from "@/components/CreateProjectDialog";
 import { toast } from "sonner";
 import { getProjects } from "../lib/api";
+import { useParams } from "react-router-dom";
 
-const Projects = ( teamId ) => {
+
+const Projects = () => {
+  const { teamId } = useParams();
   const [projects, setProjects] = useState([]);
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
-
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const id = "2e6fb63f-6dbb-4928-a451-eaf6e9353f7a";
-        const teamProjects = await getProjects(id);
+        console.log("Fetching projects for team ID:", teamId);
+        const teamProjects = await getProjects(teamId);
         console.log("Fetched Projects:", teamProjects);
         if (teamProjects) {
           setProjects(teamProjects);
@@ -48,6 +50,12 @@ const Projects = ( teamId ) => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Link
+          to= {`/dashboard`}
+          className="flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6"
+        >
+          <ArrowLeft className="h-4 w-4 mr-1" /> Back to Home
+        </Link>
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Projects</h1>

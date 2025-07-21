@@ -17,9 +17,6 @@ import { MoreHorizontal, Calendar, Check, Clock, ArrowRightCircle, CheckCircle2 
 import { Badge } from "@/components/ui/badge";
 
 const TaskCard = ({ task, sprints, onStatusChange, onAssignToSprint }) => {
-  // console.log("Task:",task);
-  // console.log("SprintList",sprints);
-  // Format the date to a readable string
   const formatDate = (date) => {
     const d = new Date(date);
     return d.toLocaleDateString(undefined, { 

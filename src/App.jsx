@@ -7,6 +7,7 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Auth from "./pages/Auth";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Dashboard from "./components/Dashboard";
+import TeamInvite from "./pages/TeamInvite";
 
 const queryClient = new QueryClient();
 
@@ -53,7 +54,7 @@ const AppRoutes = () => {
           <Dashboard />
         </ProtectedRoute>
       } />
-      <Route path="/projects" element={
+      <Route path="/teams/projects/:teamId" element={
         <ProtectedRoute>
           <Projects />
         </ProtectedRoute>
@@ -61,6 +62,11 @@ const AppRoutes = () => {
       <Route path="/projects/:projectId" element={
         <ProtectedRoute>
           <ProjectDetail />
+        </ProtectedRoute>
+      } />
+      <Route path="/invite/accept" element={
+        <ProtectedRoute>
+          <TeamInvite />
         </ProtectedRoute>
       } />
       {/* <Route path="*" element={<NotFound />} /> */}

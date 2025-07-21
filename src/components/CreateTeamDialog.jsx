@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,75 +10,53 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
-const CreateTaskDialog = ({ open, onOpenChange, onCreateTask }) => {
+const CreateTeamDialog = ({ open, onOpenChange, onCreateTeam }) => {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
-  const [priority, setPriority] = React.useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!name.trim()) return;
 
-    console.log("Priority Value:", priority);
-    onCreateTask({
+    onCreateTeam({
       name,
       description,
-      priority,
     });
 
     // Reset form
     setName("");
     setDescription("");
-    setPriority("");
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Create New Task</DialogTitle>
+          <DialogTitle>Create New Team</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 py-2">
             <div className="space-y-2">
-              <Label htmlFor="name">Task Name</Label>
+              <Label htmlFor="name">Team Name</Label>
               <Input
                 id="name"
-                placeholder="Enter task name"
+                placeholder="Enter team name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description">Team Description</Label>
               <Textarea
                 id="description"
-                placeholder="Enter task description"
+                placeholder="Enter team description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="priority">Priority</Label>
-              <RadioGroup value={priority} onValueChange={setPriority}>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="LOW" id="r1" />
-                  <Label htmlFor="r1">Low</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="MEDIUM" id="r2" />
-                  <Label htmlFor="r2">Medium</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="HIGH" id="r3" />
-                  <Label htmlFor="r3">High</Label>
-                </div>
-              </RadioGroup>
             </div>
           </div>
           <DialogFooter className="mt-6">
@@ -89,7 +67,7 @@ const CreateTaskDialog = ({ open, onOpenChange, onCreateTask }) => {
             >
               Cancel
             </Button>
-            <Button type="submit">Create Task</Button>
+            <Button type="submit">Create Team</Button>
           </DialogFooter>
         </form>
       </DialogContent>
@@ -97,4 +75,4 @@ const CreateTaskDialog = ({ open, onOpenChange, onCreateTask }) => {
   );
 };
 
-export default CreateTaskDialog;
+export default CreateTeamDialog;
